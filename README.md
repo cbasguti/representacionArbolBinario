@@ -1,4 +1,4 @@
-# representacionArbolBinario
+# Arbol Binario - Representación Gráfica
 
 Un árbol es una estructura recursiva, donde además cada registro se podrá considerar como la
 raíz de un subárbol. Un nodo padre puede tener un número indefinido de hijos, un hijo es la

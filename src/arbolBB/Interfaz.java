@@ -10,16 +10,14 @@ import javax.swing.*;
  */
 public class Interfaz extends javax.swing.JFrame {
 
-    private ArbolBB arbolito;
-    private SimuladorArbolBinario simulador = new SimuladorArbolBinario();
+    private ArbolBB arbolito;// Arbol binario representado
+    private SimuladorArbolBinario simulador = new SimuladorArbolBinario();// Controlador de Arbol binario
 
-    /**
-     * Creates new form Vista
-     */
+    // Constructor de la Interfaz del programa
     public Interfaz() {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);// Con esta línea, se centra la ventana
         reinicio.setVisible(false);
     }
 
@@ -305,11 +303,14 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Este es el metodo que le permite al boton insertar interactuar con el resto del programa
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         int opcion = opciones.getSelectedIndex();
         ArbolBB nuevoArbol = new ArbolBB();
         String res1, res2;
+        // De este modo se puede crear el árbol de distintas maneras
         switch (opcion) {
+            // Crear árbol ingresando nodos separados por comas
             case 0:
                 res1 = JOptionPane.showInputDialog(null, "Escriba los nodos separados por comas:", "Nodos completos", HEIGHT);
                 String nodos = res1;
@@ -330,6 +331,7 @@ public class Interfaz extends javax.swing.JFrame {
                 }
                 arbolito = nuevoArbol;
                 break;
+            // Crear árbol por medio de los recorridos InOrden y PreOrden
             case 1:
                 res1 = JOptionPane.showInputDialog(null, "Escriba el recorrido InOrden, separado por comas:", "Recorridos IN - PRE", HEIGHT);
                 res2 = JOptionPane.showInputDialog(null, "Escriba el recorrido PreOrden, separado por comas:", "Recorridos IN - PRE", HEIGHT);
@@ -365,6 +367,7 @@ public class Interfaz extends javax.swing.JFrame {
                 }
                 arbolito = nuevoArbol;
                 break;
+            // Crear árbol por medio de los recorridos InOrden y PosOrden
             case 2:
                 res1 = JOptionPane.showInputDialog(null, "Escriba el recorrido InOrden, separado por comas:", "Recorridos IN - POS", HEIGHT);
                 res2 = JOptionPane.showInputDialog(null, "Escriba el recorrido PosOrden, separado por comas:", "Recorridos IN - POS", HEIGHT);
@@ -400,6 +403,7 @@ public class Interfaz extends javax.swing.JFrame {
                 }
                 arbolito = nuevoArbol;
                 break;
+            // Crear árbol generando número aleatorio de nodos aleatorios
             case 3:
                 Random rand = new Random();
                 int random = rand.nextInt(20);
@@ -412,6 +416,8 @@ public class Interfaz extends javax.swing.JFrame {
                 arbolito = nuevoArbol;
                 break;
         }
+        // Presentación de información general del árbol
+        // Altura - Grado - Hojas
         nodoInicio.setText(String.valueOf(arbolito.getRaiz().retornaDato()));
         labelAltura.setText("Altura: " + String.valueOf(arbolito.alturaArbol(arbolito.getRaiz())));
         labelGrado.setText("Grado: " + String.valueOf(arbolito.gradoArbol(arbolito.getRaiz())));
@@ -422,6 +428,8 @@ public class Interfaz extends javax.swing.JFrame {
         reinicio.setVisible(true);
     }//GEN-LAST:event_botonInsertarActionPerformed
 
+    // Este metodo muestra la información relacionada a un nodo determinado
+    // Padre, lado, hijos, tio, ancestros, etc
     private void analizaNodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizaNodoActionPerformed
         NodoBinario nodoEscogido, padre, abuelo;
         nodoEscogido = arbolito.buscaNodo(escogeNodo.getText());
@@ -518,6 +526,8 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_analizaNodoActionPerformed
 
+    // Este método es el que recorre el árbol binario en la modalidad que se requiera
+    // InOrden - PosOrden - PreOrden
     private void recorreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recorreActionPerformed
         labelRecorrido.setText("");
         int tipo = tipoRecorrido.getSelectedIndex();
@@ -546,6 +556,7 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_recorreActionPerformed
 
+    // Con este método el usuario puede limpiar el árbol actual para ingresar uno nuevo
     private void reinicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reinicioActionPerformed
         arbolito = new ArbolBB();
         simulador = new SimuladorArbolBinario();
@@ -553,10 +564,12 @@ public class Interfaz extends javax.swing.JFrame {
         borraInfo();
     }//GEN-LAST:event_reinicioActionPerformed
 
+    // Complementos se encarga de actualizar la información de la representación gráfica del árbol
     public void complementos() {
         this.repintarArbol();
     }
 
+    // El metodo borraInfo reinicia la información que se muestra de un nodo cuando se reinicia el programa
     private void borraInfo() {
         labelAltura.setText("Altura:");
         labelGrado.setText("Grado:");
@@ -573,6 +586,7 @@ public class Interfaz extends javax.swing.JFrame {
         ancestrosNodo.setText("Ancestros:");
     }
 
+    // Como su nombre lo indica, este metodo se encarga de pintar el árbol en el JFrame
     private void repintarArbol() {
         this.jDesktopPane1.removeAll();
         Rectangle tamaño = this.jInternalFrame2.getBounds();
